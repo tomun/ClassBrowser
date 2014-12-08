@@ -1,3 +1,6 @@
+require "codeclimate-test-reporter"
+CodeClimate::TestReporter.start
+
 require_relative '../lib/ClassBrowser'
 
 describe "Test that the ObjectSpace hierarchy can be displayed" do
