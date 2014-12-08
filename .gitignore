@@ -1,2 +1,6 @@
 # bundler
 .bundle
+
+ClassBrowser-*.gem
+
+Gemfile.lock
