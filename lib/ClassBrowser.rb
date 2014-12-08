@@ -8,11 +8,7 @@ def descendants_of cls
 	#STDERR.puts "**** classes = #{classes.inspect}"
 
 	classes.sort_by do |c|
-		if (c)
-			c.name 
-		else
-			""
-		end
+		c.name 
 	end
 end
 
