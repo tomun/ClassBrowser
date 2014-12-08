@@ -1,10 +1,10 @@
-source "http://rubygems.org"
-# Add dependencies required to use your gem here.
-# Example:
-#   gem "activesupport", ">= 2.3.5"
+source "https://rubygems.org"
 
-# Add dependencies to develop your gem here.
-# Include everything needed to run rake, tests, features, etc.
-group :test do
-	gem 'rspec', :require => 'spec'
-end
+gem "bundler"  , "~> 1.7.4"
+gemspec
+gem "rspec"    , "~> 3.1.0"
+gem "rake"     , "~> 0.9.2.2" #included if using rake
+
+#group :test do
+#	gem 'rspec', :require => 'spec'
+#end

@@ -1,5 +1,19 @@
 def descendants_of cls
-	ObjectSpace.each_object(Class).select { |c| c.superclass == cls }.sort_by { |c| c.name }
+	classes = ObjectSpace.each_object(Class).select do |c| 
+		c.superclass == cls 
+	end
+
+	classes.reject! { |c| c.name == nil }
+
+	#STDERR.puts "**** classes = #{classes.inspect}"
+
+	classes.sort_by do |c|
+		if (c)
+			c.name 
+		else
+			""
+		end
+	end
 end
 
 def dump_descendants_of cls, indent = []
