@@ -27,6 +27,13 @@ describe HierarchyWriter do
 				Foo.new("Carnation", nil)
 			])
 		]);
+
+		class Parent < Object
+		end
+		class Brother < Parent
+		end
+		class Sister < Parent
+		end
 	end
 
 	context "::dump_descendants_of" do
@@ -61,13 +68,6 @@ describe HierarchyWriter do
 	context "::dump_hierarchy_of" do
 
 		it "can write out the hierarchy of 'node' objects" do
-			class Parent < Object
-			end
-			class Brother < Parent
-			end
-			class Sister < Parent
-			end
-
 			node = ClassNode.new Parent
 
 			expect { HierarchyWriter::dump_hierarchy_of(node) }.to output(
@@ -80,6 +80,20 @@ describe HierarchyWriter do
 				).to_stdout
 		end
 	end
+
+	it "main runs with argument 'Parent'" do
+    	ARGV.clear
+    	ARGV << "Parent"
+    	expect { main }.to output(
+"○ BasicObject
+└─○ Object
+  └─○ Parent
+    ├─○ Sister
+    └─○ Brother
+"
+    		).to_stdout
+
+    end
 end
 
 describe ClassNode do
@@ -116,20 +130,4 @@ describe "Test that the ObjectSpace hierarchy can be displayed" do
       	expect { main }.to output(/BasicObject/).to_stdout
     end
 
-    it "main runs with argument 'ScriptError'" do
-    	ARGV.clear
-    	ARGV << "ScriptError"
-    	expect { main }.to output(
-"○ BasicObject
-└─○ Object
-  └─○ Exception
-    └─○ ScriptError
-      ├─○ SyntaxError
-      ├─○ NotImplementedError
-      └─○ LoadError
-        └─○ Gem::LoadError
-"
-    		).to_stdout
-
-    end
 end
