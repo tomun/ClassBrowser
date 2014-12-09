@@ -14,11 +14,11 @@ An interactive ruby class browser
 [Build Status]: https://travis-ci.org/tomun/ClassBrowser
 [travis pull requests]: https://travis-ci.org/tomun/ClassBrowser/pull_requests
 [Dependency Status]: https://gemnasium.com/tomun/ClassBrowser
-[Code Climate]: https://codeclimate.com/github/tomun/ClassBrowser
+[Code Climate]: https://codeclimate.com/repos/5486124de30ba079230050ca/feed
 [Coverage Status]: https://coveralls.io/r/tomun/ClassBrowser
 
 [GV img]: https://badge.fury.io/rb/ClassBrowser.png
 [BS img]: https://travis-ci.org/tomun/ClassBrowser.png
 [DS img]: https://gemnasium.com/tomun/ClassBrowser.png
-[CC img]: https://codeclimate.com/github/tomun/ClassBrowser.png
+[CC img]: https://codeclimate.com/repos/5486124de30ba079230050ca/badges/b374b21eb9741352f3b9/gpa.svg
 [CS img]: https://coveralls.io/repos/tomun/ClassBrowser/badge.png?branch=master
