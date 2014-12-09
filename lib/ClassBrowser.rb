@@ -1,42 +1,72 @@
-def descendants_of cls
-	classes = ObjectSpace.each_object(Class).select do |c| 
-		c.superclass == cls 
+require_relative 'HierarchyWriter'
+
+
+class ClassNode
+	attr_reader :klass
+
+	def initialize klass
+		@klass = klass;
 	end
 
-	classes.reject! { |c| c.name == nil }
+	def name
+		@klass.name
+	end
 
-	#STDERR.puts "**** classes = #{classes.inspect}"
+	def ancestors
+		class_nodes = []
+		@klass.ancestors[1..-1].each do |c|
+			if c.class == Class 
+				class_node = ClassNode.new c
+				class_nodes << class_node
+			end
+		end
+		class_nodes
+	end
 
-	classes.sort_by do |c|
-		c.name 
+	def descendants
+		klass = @klass
+
+		klasses = ObjectSpace.each_object(Class).select do |c| 
+			c.superclass == klass 
+		end
+
+		klasses.reject! { |c| c.name == nil }
+
+		klasses.sort_by do |c|
+			c.name 
+		end
+	
+		class_nodes = []
+
+		klasses.each do |c|
+			class_node = ClassNode.new c
+			class_nodes << class_node
+		end
+
+		class_nodes
+	end
+
+	def == other
+		@klass == other.klass
 	end
 end
 
-def dump_descendants_of cls, indent = []
-	indent.each_with_index do |draw, index| 
-		last = index == indent.size - 1 
-		if draw 
-			print last ? "└" : " "
-		else
-			print last ? "├" : "│"
-		end
-		if last
-			print "─"
-		else
-			print " "
-		end
-	end 
 
-	modules = cls.ancestors.select { |a| a.class == Module }.to_s
-	puts "○ " + cls.name + " - " + modules
+class ClassBrowser
+	attr_reader :root_class_node
 
-	desc = descendants_of cls
-	desc.each_with_index do |c, index|
-		last = index == desc.size - 1
-		dump_descendants_of c, indent.clone.push(last)
+	def initialize root_class
+		@root_class_node = ClassNode.new root_class
+	end
+
+	def dump_descendants
+		HierarchyWriter::dump_descendants_of root_class_node
 	end
 end
 
+#modules = cls.ancestors.select { |a| a.class == Module }.to_s
+	
 def main
-	dump_descendants_of BasicObject
+	browser = ClassBrowser.new BasicObject
+	browser.dump_descendants
 end
