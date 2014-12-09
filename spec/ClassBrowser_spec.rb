@@ -6,30 +6,34 @@ require_relative '../lib/ClassBrowser'
 
 describe HierarchyWriter do
 
+	class Foo
+		attr_reader :name
+		attr_reader :descendants
+
+		def initialize name, descendants
+			@name = name
+			@descendants = descendants
+		end
+	end
+
+	before do
+		@tree = Foo.new("Plant", [
+			Foo.new("Tree",	[
+				Foo.new("Pine", nil), 
+				Foo.new("Fir", nil)
+			]),
+			Foo.new("Flower", [
+				Foo.new("Rose", nil), 
+				Foo.new("Carnation", nil)
+			])
+		]);
+	end
+
 	context "::dump_descendants_of" do
 
-		class Foo
-			attr_reader :name
-			attr_reader :descendants
+		it "can write out a simple Hierarchy of 'node' objects that respond to #name and #descendants" do
 
-			def initialize name, descendants
-				@name = name
-				@descendants = descendants
-			end
-		end
-
-		it "can write out a simple Hierarchy of objecs that respond to #name and #descendants" do
-			tree = Foo.new("Plant", [
-				Foo.new("Tree",	[
-					Foo.new("Pine", nil), 
-					Foo.new("Fir", nil)
-				]),
-				Foo.new("Flower", [
-					Foo.new("Rose", nil), 
-					Foo.new("Carnation", nil)
-				])
-			]);
-		expect { HierarchyWriter::dump_descendants_of(tree) }.to output(
+		expect { HierarchyWriter::dump_descendants_of(@tree) }.to output(
 "○ Plant
 ├─○ Tree
 │ ├─○ Pine
@@ -41,19 +45,31 @@ describe HierarchyWriter do
 			).to_stdout
 		end
 	end
+
+	context "::dump_ancestors_of" do
+
+		it "can write out the ancestors of 'node' objects that respond to #ancestors" do
+			expect { HierarchyWriter::dump_ancestors_of(ClassNode.new(Exception)) }.to output(
+"○ BasicObject
+└─○ Object
+"		
+			).to_stdout
+		end
+
+	end
 end
 
 describe ClassNode do
 
 	before do
 
-		class Foo
+		class Foo < Object
 		end
 
 		class Bar < Foo
 		end
 
-    	@node = ClassNode.new Foo
+		@node = ClassNode.new Foo
 	end
 
 	it "can return the name of the class" do
@@ -74,5 +90,6 @@ describe "Test that the ObjectSpace hierarchy can be displayed" do
 
     it "main runs" do
       expect { main }.to output(/BasicObject/).to_stdout
+
     end
 end

@@ -17,7 +17,7 @@ class ClassNode
 		@klass.ancestors[1..-1].each do |c|
 			if c.class == Class 
 				class_node = ClassNode.new c
-				class_nodes << class_node
+				class_nodes.insert 0, class_node
 			end
 		end
 		class_nodes

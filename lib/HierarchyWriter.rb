@@ -10,11 +10,7 @@ class HierarchyWriter
 			else
 				print last ? "├" : "│"
 			end
-			if last
-				print "─"
-			else
-				print " "
-			end
+			print last ? "─" : " "
 		end 
 
 		puts "○ " + node.name
@@ -26,6 +22,19 @@ class HierarchyWriter
 				self.dump_descendants_of c, indent.clone.push(last)
 			end
 		end
+	end
+
+	# print the ancestors of node as a tree using line drawing characters
+	# node is expected to respond to #name and #ancestors
+	def self.dump_ancestors_of node
+		ansc = node.ancestors
+
+		ansc.each_with_index do |c, index| 
+			if index != 0
+				print "└─"
+			end
+			puts "○ " + c.name
+		end 
 	end
 
 end
