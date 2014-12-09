@@ -59,14 +59,23 @@ class ClassBrowser
 		@root_class_node = ClassNode.new root_class
 	end
 
-	def dump_descendants
-		HierarchyWriter::dump_descendants_of root_class_node
+	def dump_hierarchy
+		HierarchyWriter::dump_hierarchy_of root_class_node
 	end
 end
 
 #modules = cls.ancestors.select { |a| a.class == Module }.to_s
 	
 def main
-	browser = ClassBrowser.new BasicObject
-	browser.dump_descendants
+	klass = nil
+
+	if ARGV.length > 0
+		klass = Object.const_get(ARGV[0])
+	end
+
+	if klass == nil
+		klass = BasicObject
+	end
+	browser = ClassBrowser.new klass
+	browser.dump_hierarchy
 end

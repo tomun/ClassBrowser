@@ -6,17 +6,17 @@ require_relative '../lib/ClassBrowser'
 
 describe HierarchyWriter do
 
-	class Foo
-		attr_reader :name
-		attr_reader :descendants
-
-		def initialize name, descendants
-			@name = name
-			@descendants = descendants
-		end
-	end
-
 	before do
+		class Foo
+			attr_reader :name
+			attr_reader :descendants
+
+			def initialize name, descendants
+				@name = name
+				@descendants = descendants
+			end
+		end
+
 		@tree = Foo.new("Plant", [
 			Foo.new("Tree",	[
 				Foo.new("Pine", nil), 
@@ -57,6 +57,29 @@ describe HierarchyWriter do
 		end
 
 	end
+
+	context "::dump_hierarchy_of" do
+
+		it "can write out the hierarchy of 'node' objects" do
+			class Parent < Object
+			end
+			class Brother < Parent
+			end
+			class Sister < Parent
+			end
+
+			node = ClassNode.new Parent
+
+			expect { HierarchyWriter::dump_hierarchy_of(node) }.to output(
+"○ BasicObject
+└─○ Object
+  └─○ Parent
+    ├─○ Sister
+    └─○ Brother
+"
+				).to_stdout
+		end
+	end
 end
 
 describe ClassNode do
@@ -88,8 +111,25 @@ end
 
 describe "Test that the ObjectSpace hierarchy can be displayed" do
 
-    it "main runs" do
-      expect { main }.to output(/BasicObject/).to_stdout
+    it "main runs with no arguments" do
+    	ARGV.clear
+      	expect { main }.to output(/BasicObject/).to_stdout
+    end
+
+    it "main runs with argument 'ScriptError'" do
+    	ARGV.clear
+    	ARGV << "ScriptError"
+    	expect { main }.to output(
+"○ BasicObject
+└─○ Object
+  └─○ Exception
+    └─○ ScriptError
+      ├─○ SyntaxError
+      ├─○ NotImplementedError
+      └─○ LoadError
+        └─○ Gem::LoadError
+"
+    		).to_stdout
 
     end
 end
