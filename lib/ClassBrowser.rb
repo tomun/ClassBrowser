@@ -59,6 +59,11 @@ end
 	
 def main
 	browser = ClassBrowser.new
-	browser.parse_arguments ARGV
-	browser.dump_hierarchy
+	if ARGV.length > 0
+		browser.parse_arguments ARGV
+		browser.dump_hierarchy
+	else
+		browser.interactive
+		puts "Bye!"
+	end
 end
