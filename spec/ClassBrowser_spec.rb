@@ -156,9 +156,9 @@ describe ClassBrowser do
 		expect(@browser.class_root_node.klass.name).to eq("Array")
 	end
 
-	it "a bogus class name argument defaults to Object" do
+	it "a bogus class name argument returns nil" do
 		@browser.parse_arguments ["-foo", "Jabberwocky", "-bar"]
-		expect(@browser.class_root_node.klass.name).to eq("Object")
+		expect(@browser.class_root_node.klass).to eq(nil)
 	end
 
 end
@@ -172,7 +172,6 @@ describe "The ClassBrowser can be invoked from the command line" do
     it "main runs with argument 'String' and dumps the String hierarchy" do
     	ARGV.clear
     	ARGV << "String"
-    	main
       	expect { main }.to output(
 "○ BasicObject
 └─○ Object
@@ -183,7 +182,6 @@ describe "The ClassBrowser can be invoked from the command line" do
 
     it "main runs in interactive mode with user input 'Array' then blank dumps the Array hierarchy then quits" do
     	expect(@browser).to receive(:gets).twice.and_return("Array", "\n")
-
     	expect { @browser.interactive }.to output(
  /○ BasicObject
 └─○ Object

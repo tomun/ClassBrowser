@@ -25,11 +25,12 @@ class ClassBrowser
 		class_name_index = argv.index{ |o| !o.start_with?("-") }
 		if class_name_index
 			class_name = argv[class_name_index]
-			klass = Object
+			klass = nil
 			begin
 				klass = Object.const_get(class_name)
 			rescue
-				klass = Object
+				puts "Unknown class"
+				klass = nil
 			end
 			@class_root_node = ClassNode.new klass
 		end
@@ -40,7 +41,8 @@ class ClassBrowser
 		failsafe = 1
 
 		loop do
-			args = gets.split(" ")
+			print ">"
+			args = gets.split(/\s+/)
 
 			if args == nil || args.length == 0
 				break
@@ -67,3 +69,5 @@ def main
 		puts "Bye!"
 	end
 end
+
+main
