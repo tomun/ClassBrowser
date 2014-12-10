@@ -4,6 +4,15 @@ CodeClimate::TestReporter.start
 require_relative '../lib/HierarchyWriter'
 require_relative '../lib/ClassBrowser'
 
+# sample classes used in tests below
+class Foo < Object;	end
+class Bar < Foo; end
+
+class Parent < Object; end
+class Brother < Parent; end
+class Sister < Parent; end
+class Grandchild < Sister; end
+
 describe HierarchyWriter do
 
 	before do
@@ -27,13 +36,6 @@ describe HierarchyWriter do
 				Foo.new("Carnation", nil)
 			])
 		]);
-
-		class Parent < Object
-		end
-		class Brother < Parent
-		end
-		class Sister < Parent
-		end
 	end
 
 	context "::dump_descendants_of" do
@@ -75,6 +77,7 @@ describe HierarchyWriter do
 └─○ Object
   └─○ Parent
     ├─○ Sister
+    │ └─○ Grandchild
     └─○ Brother
 "
 				).to_stdout
@@ -89,6 +92,7 @@ describe HierarchyWriter do
 └─○ Object
   └─○ Parent
     ├─○ Sister
+    │ └─○ Grandchild
     └─○ Brother
 "
     		).to_stdout
@@ -99,13 +103,6 @@ end
 describe ClassNode do
 
 	before do
-
-		class Foo < Object
-		end
-
-		class Bar < Foo
-		end
-
 		@node = ClassNode.new Foo
 	end
 
@@ -119,6 +116,34 @@ describe ClassNode do
 
 	it "can return the descendants of the class" do
 		expect(@node.descendants).to eq([ClassNode.new(Bar)])
+	end
+
+end
+
+describe ClassBrowser do
+
+	before do
+		@browser = ClassBrowser.new 
+	end
+
+	it "can parse the '-di' argument" do
+		@browser.parse_arguments ["-di"]
+		expect(@browser.depth).to eq(:immediate_descendants)
+	end
+
+	it "can parse the '-da' argument" do
+		@browser.parse_arguments ["-da"]
+		expect(@browser.depth).to eq(:all_descendants)
+	end
+
+	it "can parse a class name argument" do
+		@browser.parse_arguments ["-foo", "Array", "-bar"]
+		expect(@browser.class_root_node.klass.name).to eq("Array")
+	end
+
+	it "a bogus class name argument defaults to Object" do
+		@browser.parse_arguments ["-foo", "Jabberwocky", "-bar"]
+		expect(@browser.class_root_node.klass.name).to eq("Object")
 	end
 
 end

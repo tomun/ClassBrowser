@@ -1,11 +1,10 @@
 require_relative 'HierarchyWriter'
 
-
 class ClassNode
 	attr_reader :klass
 
 	def initialize klass
-		@klass = klass;
+		@klass = klass
 	end
 
 	def name
@@ -53,14 +52,37 @@ end
 
 
 class ClassBrowser
-	attr_reader :root_class_node
+	attr_reader :class_root_node
+	attr_reader :depth
 
-	def initialize root_class
-		@root_class_node = ClassNode.new root_class
+	def initialize root_class = Object
+		@class_root_node = ClassNode.new root_class
+		@depth = :all_descendants
 	end
 
 	def dump_hierarchy
-		HierarchyWriter::dump_hierarchy_of root_class_node
+		HierarchyWriter::dump_hierarchy_of @class_root_node
+	end
+
+	def parse_arguments argv
+		if argv.include? "-di"
+			@depth = :immediate_descendants
+		end
+		if argv.include? "-da"
+			@depth = :all_descendants
+		end
+
+		class_name_index = argv.index{ |o| !o.start_with?("-") }
+		if class_name_index
+			class_name = argv[class_name_index]
+			klass = Object
+			begin
+				klass = Object.const_get(class_name)
+			rescue
+				klass = Object
+			end
+			@class_root_node = ClassNode.new klass
+		end
 	end
 end
 
