@@ -1,55 +1,5 @@
+require_relative "ClassNode"
 require_relative 'HierarchyWriter'
-
-class ClassNode
-	attr_reader :klass
-
-	def initialize klass
-		@klass = klass
-	end
-
-	def name
-		@klass.name
-	end
-
-	def ancestors
-		class_nodes = []
-		@klass.ancestors[1..-1].each do |c|
-			if c.class == Class 
-				class_node = ClassNode.new c
-				class_nodes.insert 0, class_node
-			end
-		end
-		class_nodes
-	end
-
-	def descendants
-		klass = @klass
-
-		klasses = ObjectSpace.each_object(Class).select do |c| 
-			c.superclass == klass 
-		end
-
-		klasses.reject! { |c| c.name == nil }
-
-		klasses.sort_by do |c|
-			c.name 
-		end
-	
-		class_nodes = []
-
-		klasses.each do |c|
-			class_node = ClassNode.new c
-			class_nodes << class_node
-		end
-
-		class_nodes
-	end
-
-	def == other
-		@klass == other.klass
-	end
-end
-
 
 class ClassBrowser
 	attr_reader :class_root_node
@@ -57,19 +7,19 @@ class ClassBrowser
 
 	def initialize root_class = Object
 		@class_root_node = ClassNode.new root_class
-		@depth = :all_descendants
+		@depth = :depth_immediate
 	end
 
 	def dump_hierarchy
-		HierarchyWriter::dump_hierarchy_of @class_root_node
+		HierarchyWriter::dump_hierarchy_of @class_root_node, @depth
 	end
 
 	def parse_arguments argv
 		if argv.include? "-di"
-			@depth = :immediate_descendants
+			@depth = :depth_immediate
 		end
 		if argv.include? "-da"
-			@depth = :all_descendants
+			@depth = :depth_all
 		end
 
 		class_name_index = argv.index{ |o| !o.start_with?("-") }
@@ -84,20 +34,31 @@ class ClassBrowser
 			@class_root_node = ClassNode.new klass
 		end
 	end
+
+	def interactive
+
+		failsafe = 1
+
+		loop do
+			args = gets.split(" ")
+
+			if args == nil || args.length == 0
+				break
+			end
+
+			parse_arguments args
+			dump_hierarchy
+
+			failsafe += 1
+			break if failsafe > 100
+		end 
+	end
 end
 
 #modules = cls.ancestors.select { |a| a.class == Module }.to_s
 	
 def main
-	klass = nil
-
-	if ARGV.length > 0
-		klass = Object.const_get(ARGV[0])
-	end
-
-	if klass == nil
-		klass = BasicObject
-	end
-	browser = ClassBrowser.new klass
+	browser = ClassBrowser.new
+	browser.parse_arguments ARGV
 	browser.dump_hierarchy
 end

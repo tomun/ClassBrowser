@@ -84,6 +84,22 @@ describe HierarchyWriter do
 		end
 	end
 
+	context "::dump_hierarchy_of called with :depth_immediate" do
+
+		it "can write out the hierarchy of 'node' objects" do
+			node = ClassNode.new Parent
+
+			expect { HierarchyWriter::dump_hierarchy_of(node, :depth_immediate) }.to output(
+"○ BasicObject
+└─○ Object
+  └─○ Parent
+    ├─○ Sister
+    └─○ Brother
+"
+				).to_stdout
+		end
+	end
+
 	it "main runs with argument 'Parent'" do
     	ARGV.clear
     	ARGV << "Parent"
@@ -92,7 +108,6 @@ describe HierarchyWriter do
 └─○ Object
   └─○ Parent
     ├─○ Sister
-    │ └─○ Grandchild
     └─○ Brother
 "
     		).to_stdout
@@ -128,12 +143,12 @@ describe ClassBrowser do
 
 	it "can parse the '-di' argument" do
 		@browser.parse_arguments ["-di"]
-		expect(@browser.depth).to eq(:immediate_descendants)
+		expect(@browser.depth).to eq(:depth_immediate)
 	end
 
 	it "can parse the '-da' argument" do
 		@browser.parse_arguments ["-da"]
-		expect(@browser.depth).to eq(:all_descendants)
+		expect(@browser.depth).to eq(:depth_all)
 	end
 
 	it "can parse a class name argument" do
@@ -148,11 +163,31 @@ describe ClassBrowser do
 
 end
 
-describe "Test that the ObjectSpace hierarchy can be displayed" do
+describe "The ClassBrowser can be invoked from the command line" do
 
-    it "main runs with no arguments" do
+	before do
+		@browser = ClassBrowser.new
+	end
+
+    it "main runs with argument 'String' and dumps the String hierarchy" do
     	ARGV.clear
-      	expect { main }.to output(/BasicObject/).to_stdout
+    	ARGV << "String"
+    	main
+      	expect { main }.to output(
+"○ BasicObject
+└─○ Object
+  └─○ String
+"
+      		).to_stdout
     end
 
+    it "main runs in interactive mode with user input 'Array' then blank dumps the Array hierarchy then quits" do
+    	expect(@browser).to receive(:gets).twice.and_return("Array", "\n")
+
+    	expect { @browser.interactive }.to output(
+ /○ BasicObject
+└─○ Object
+  └─○ Array
+/   		).to_stdout
+    end
 end

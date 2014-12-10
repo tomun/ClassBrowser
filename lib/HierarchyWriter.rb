@@ -2,7 +2,7 @@ class HierarchyWriter
 
 	# print the descendants of node as a tree using line drawing characters
 	# node is expected to respond to #name and #descendants
-	def self.dump_descendants_of node, indent = []
+	def self.dump_descendants_of node, indent = [], depth = :depth_all
 		indent.each_with_index do |draw, index| 
 			last = index == indent.size - 1 
 			if draw 
@@ -15,11 +15,16 @@ class HierarchyWriter
 
 		puts "○ " + node.name
 
-		desc = node.descendants
-		if desc
-			desc.each_with_index do |c, index|
-				last = index == desc.size - 1
-				self.dump_descendants_of c, indent.clone.push(last)
+		if depth != :depth_none
+			desc = node.descendants
+			if desc
+				if depth == :depth_immediate
+					depth = :depth_none
+				end
+				desc.each_with_index do |c, index|
+					last = index == desc.size - 1
+					self.dump_descendants_of c, indent.clone.push(last), depth
+				end
 			end
 		end
 	end
@@ -50,9 +55,9 @@ class HierarchyWriter
 		indent
 	end
 
-	def self.dump_hierarchy_of node
+	def self.dump_hierarchy_of node, depth = :depth_all
 		indent = HierarchyWriter::dump_ancestors_of node
-		HierarchyWriter::dump_descendants_of node, indent
+		HierarchyWriter::dump_descendants_of node, indent, depth
 	end
 
 end
