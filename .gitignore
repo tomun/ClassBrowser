@@ -1,6 +1,10 @@
 # bundler
 .bundle
 
+Gemfile.lock
+
+# gem build output
 ClassBrowser-*.gem
 
-Gemfile.lock
+# Mac OS files
+.DS_Store
