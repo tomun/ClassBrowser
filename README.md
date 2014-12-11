@@ -17,24 +17,24 @@ Usage: ClassBrowser \[class\] \[switches\]
 
 'class' is a Class or Module name
 
-'switches' may be:
-  -h:   show help
-  -da:  show the all descendants of this class
-  -di:  show the immediate descendants of this class
-  -dn:  do not show the descendants of this class
-  -m:   show the Modules included by this Class or Module
-  -ma:  show all methods of this Class or Module
-  -mi:  show the instance methods of this Class
-  -mc:  show the class methods of this Class
-  -mn:  do not show any methods of this Class or Module
+'switches' may be:  
+  -h:   show help  
+  -da:  show the all descendants of this class  
+  -di:  show the immediate descendants of this class  
+  -dn:  do not show the descendants of this class  
+  -m:   show the Modules included by this Class or Module  
+  -ma:  show all methods of this Class or Module  
+  -mi:  show the instance methods of this Class  
+  -mc:  show the class methods of this Class  
+  -mn:  do not show any methods of this Class or Module  
 
 ## Command Line Example
 
-$ ClassBrowser Array
-○ BasicObject
-└─○ Object
-  └─○ Array
-    └─○ CGI::Cookie
+  $ ClassBrowser Array  
+  ○ BasicObject  
+  └─○ Object  
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─○ Array  
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─○ CGI::Cookie  
 
 ## Interactive Mode
 
@@ -42,25 +42,24 @@ In interactive mode, the prompt shows the current Class or Module.  Entering a C
 
 ## Interactive Example
 
-$ ClassBrowser
-
-Object> Array
-
-○ BasicObject
-└─○ Object
-  └─○ Array
-    └─○ CGI::Cookie
-
-Array> -dn -mc 
-○ BasicObject
-└─○ Object
-  └─○ Array
-
-::[]                    
-::try_convert           
-
-Array> 
-
+  $ ClassBrowser  
+    
+  Object> Array  
+    
+  ○ BasicObject  
+  └─○ Object  
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─○ Array  
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─○ CGI::Cookie  
+    
+  Array> -dn -mc  
+  ○ BasicObject  
+  └─○ Object  
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─○ Array  
+    
+  ::[]                      
+  ::try_convert  
+    
+  Array> 
 
 [Gem Version]: https://rubygems.org/gems/ClassBrowser
 [Build Status]: https://travis-ci.org/tomun/ClassBrowser
