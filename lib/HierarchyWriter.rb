@@ -55,6 +55,7 @@ class HierarchyWriter
 		indent
 	end
 
+	# prints the ancestors and descendants of node
 	def self.dump_hierarchy_of node, depth = :depth_all
 		indent = HierarchyWriter::dump_ancestors_of node
 		HierarchyWriter::dump_descendants_of node, indent, depth

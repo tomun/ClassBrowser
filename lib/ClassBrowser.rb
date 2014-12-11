@@ -3,12 +3,14 @@ require_relative 'HierarchyWriter'
 
 class ClassBrowser
 	attr_reader :class_root_node
+	attr_reader :show_help
 	attr_reader :depth
 	attr_reader :show_modules
 	attr_reader :show_methods
 
 	def initialize root_class = Object
 		@class_root_node = ClassNode.new root_class
+		@show_help = false
 		@depth = :depth_immediate
 		@show_modules = false
 		@show_methods = :methods_none
@@ -55,15 +57,41 @@ class ClassBrowser
 		end
 	end
 
+	def show_help
+		if @show_help
+			puts "Usage: ClassBrowser [class] [switches]"
+			puts "Where:"
+			puts "class is a Class or Module name"
+			puts "args may be:"
+			puts "  -h or -?: show this message"
+			puts "  -da:      show the all descendants of this class"
+			puts "  -di:      show the immediate descendants of this class"
+			puts "  -dn:      do not show the descendants of this class"
+			puts "  -m:       show the Modules included by this Class or Module"
+			puts "  -ma:      show all methods of this Class or Module"
+			puts "  -mi:      show the instance methods of this Class"
+			puts "  -mc:      show the class methods of this Class"
+			puts "  -mn:      do not show any methods of this Class or Module"
+			puts "ClassBrowser with no arguments enters interactive mode"
+			true
+		else
+			false
+		end
+	end
+
 	def dump
-		dump_hierarchy
-		dump_modules
-		dump_methods
+		if !show_help
+			dump_hierarchy
+			dump_modules
+			dump_methods
+		end
 	end
 
 
 	def parse_arguments argv
 		flags = {
+			"-?"  => lambda { @show_help = true },
+			"-h"  => lambda { @show_help = true },
 			"-di" => lambda { @depth = :depth_immediate },
 			"-da" => lambda { @depth = :depth_all },
 			"-dn" => lambda { @depth = :depth_none },

@@ -191,6 +191,11 @@ describe ClassBrowser do
 		expect(@browser.class_root_node.klass).to eq(nil)
 	end
 
+	it "dump a list of a class's methods" do
+		@browser.parse_arguments ["Array", "-ma"]
+		expect{ @browser.dump }.to output(/#pretty_print_cycle/).to_stdout
+	end
+
 end
 
 describe "The ClassBrowser can be invoked from the command line" do
