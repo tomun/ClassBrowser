@@ -8,7 +8,59 @@
 
 ## Description
 
-An interactive ruby class browser
+ClassBrowser is an interactive ruby class browser.   
+
+## Usage
+ClassBrowser can be invoked with command line arguments or, if no arguments are specified, ClassBrowser will enter its interactive mode.   In interactive mode you may enter the same arguments as from the command line repeatedly.   Enter a blank line to exit interactive mode and the program.
+
+Usage: ClassBrowser \[class\] \[switches\]
+
+'class' is a Class or Module name
+
+'switches' may be:
+  -h:   show help
+  -da:  show the all descendants of this class
+  -di:  show the immediate descendants of this class
+  -dn:  do not show the descendants of this class
+  -m:   show the Modules included by this Class or Module
+  -ma:  show all methods of this Class or Module
+  -mi:  show the instance methods of this Class
+  -mc:  show the class methods of this Class
+  -mn:  do not show any methods of this Class or Module
+
+## Command Line Example
+
+$ ClassBrowser Array
+○ BasicObject
+└─○ Object
+  └─○ Array
+    └─○ CGI::Cookie
+
+## Interactive Mode
+
+In interactive mode, the prompt shows the current Class or Module.  Entering a Class or Module name and pressing enter will change the prompt to the new current Class or Module.   If you enter an invalid name, you will change to *Unknown class*>.   When switching to a class in interactive mode, information about this class will be displayed depending on the current switches.   Entering just switches and no class name will just redisplay information about the current class using the new switches
+
+## Interactive Example
+
+$ ClassBrowser
+
+Object> Array
+
+○ BasicObject
+└─○ Object
+  └─○ Array
+    └─○ CGI::Cookie
+
+Array> -dn -mc 
+○ BasicObject
+└─○ Object
+  └─○ Array
+
+::[]                    
+::try_convert           
+
+Array> 
+
 
 [Gem Version]: https://rubygems.org/gems/ClassBrowser
 [Build Status]: https://travis-ci.org/tomun/ClassBrowser

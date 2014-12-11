@@ -62,7 +62,7 @@ class ClassBrowser
 			puts "Usage: ClassBrowser [class] [switches]
 Where:
 class is a Class or Module name
-args may be:
+switches may be:
   -h:   show this message
   -da:  show the all descendants of this class
   -di:  show the immediate descendants of this class
