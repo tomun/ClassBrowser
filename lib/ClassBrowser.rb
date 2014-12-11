@@ -59,20 +59,21 @@ class ClassBrowser
 
 	def show_help
 		if @show_help
-			puts "Usage: ClassBrowser [class] [switches]"
-			puts "Where:"
-			puts "class is a Class or Module name"
-			puts "args may be:"
-			puts "  -h or -?: show this message"
-			puts "  -da:      show the all descendants of this class"
-			puts "  -di:      show the immediate descendants of this class"
-			puts "  -dn:      do not show the descendants of this class"
-			puts "  -m:       show the Modules included by this Class or Module"
-			puts "  -ma:      show all methods of this Class or Module"
-			puts "  -mi:      show the instance methods of this Class"
-			puts "  -mc:      show the class methods of this Class"
-			puts "  -mn:      do not show any methods of this Class or Module"
-			puts "ClassBrowser with no arguments enters interactive mode"
+			puts "Usage: ClassBrowser [class] [switches]
+Where:
+class is a Class or Module name
+args may be:
+  -h or -?: show this message
+  -da:      show the all descendants of this class
+  -di:      show the immediate descendants of this class
+  -dn:      do not show the descendants of this class
+  -m:       show the Modules included by this Class or Module
+  -ma:      show all methods of this Class or Module
+  -mi:      show the instance methods of this Class
+  -mc:      show the class methods of this Class
+  -mn:      do not show any methods of this Class or Module
+ClassBrowser with no arguments enters interactive mode
+"
 			true
 		else
 			false
