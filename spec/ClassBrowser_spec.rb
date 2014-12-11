@@ -191,9 +191,19 @@ describe ClassBrowser do
 		expect(@browser.class_root_node.klass).to eq(nil)
 	end
 
-	it "dump a list of a class's methods" do
+	it "dumps a list of a class's methods" do
 		@browser.parse_arguments ["Array", "-ma"]
 		expect{ @browser.dump }.to output(/#pretty_print_cycle/).to_stdout
+	end
+
+	it "dumps a list of a class's included modules" do
+		@browser.parse_arguments ["Array", "-m"]
+		expect{ @browser.dump }.to output(/[Enumerable]/).to_stdout
+	end
+
+	it "dumps help" do
+		@browser.parse_arguments ["-h"]
+		expect{ @browser.dump }.to output(/ClassBrowser with no arguments enters interactive mode/).to_stdout
 	end
 
 end
@@ -216,8 +226,8 @@ describe "The ClassBrowser can be invoked from the command line" do
     end
 
     it "main runs in interactive mode with user input 'Array' then blank dumps the Array hierarchy then quits" do
-    	expect(@browser).to receive(:gets).twice.and_return("Array", "\n")
-    	expect { @browser.interactive }.to output(
+		expect(@browser).to receive(:gets).twice.and_return("Array", "\n")
+		expect { @browser.interactive }.to output(
  /○ BasicObject
 └─○ Object
   └─○ Array

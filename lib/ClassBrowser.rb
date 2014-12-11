@@ -63,15 +63,15 @@ class ClassBrowser
 Where:
 class is a Class or Module name
 args may be:
-  -h or -?: show this message
-  -da:      show the all descendants of this class
-  -di:      show the immediate descendants of this class
-  -dn:      do not show the descendants of this class
-  -m:       show the Modules included by this Class or Module
-  -ma:      show all methods of this Class or Module
-  -mi:      show the instance methods of this Class
-  -mc:      show the class methods of this Class
-  -mn:      do not show any methods of this Class or Module
+  -h:   show this message
+  -da:  show the all descendants of this class
+  -di:  show the immediate descendants of this class
+  -dn:  do not show the descendants of this class
+  -m:   show the Modules included by this Class or Module
+  -ma:  show all methods of this Class or Module
+  -mi:  show the instance methods of this Class
+  -mc:  show the class methods of this Class
+  -mn:  do not show any methods of this Class or Module
 ClassBrowser with no arguments enters interactive mode
 "
 			true
@@ -91,7 +91,6 @@ ClassBrowser with no arguments enters interactive mode
 
 	def parse_arguments argv
 		flags = {
-			"-?"  => lambda { @show_help = true },
 			"-h"  => lambda { @show_help = true },
 			"-di" => lambda { @depth = :depth_immediate },
 			"-da" => lambda { @depth = :depth_all },
