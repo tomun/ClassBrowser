@@ -156,6 +156,11 @@ describe ClassBrowser do
 		expect(@browser.depth).to eq(:depth_none)
 	end
 
+	it "can parse the '-m' argument" do
+		@browser.parse_arguments ["-m"]
+		expect(@browser.show_modules).to eq(true)
+	end
+
 	it "can parse the '-mn' argument" do
 		@browser.parse_arguments ["-mn"]
 		expect(@browser.show_methods).to eq(:methods_none)

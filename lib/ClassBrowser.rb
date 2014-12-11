@@ -63,26 +63,22 @@ class ClassBrowser
 
 
 	def parse_arguments argv
-		if argv.include? "-di"
-			@depth = :depth_immediate
-		elsif argv.include? "-da"
-			@depth = :depth_all
-		elsif argv.include? "-dn"
-			@depth = :depth_none
-		end
+		flags = {
+			"-di" => lambda { @depth = :depth_immediate },
+			"-da" => lambda { @depth = :depth_all },
+			"-dn" => lambda { @depth = :depth_none },
+			"-m"  => lambda { @show_modules = true },
+			"-mn" => lambda { @show_methods = :methods_none },
+			"-ma" => lambda { @show_methods = :methods_all },
+			"-mi" => lambda { @show_methods = :methods_instance },
+			"-mc" => lambda { @show_methods = :methods_class },
+		}
 
-		if argv.include? "-m"
-			@show_modules = true
-		end
-
-		if argv.include? "-mn"
-			@show_methods = :methods_none
-		elsif argv.include? "-ma"
-			@show_methods = :methods_all
-		elsif argv.include? "-mi"
-			@show_methods = :methods_instance
-		elsif argv.include? "-mc"
-			@show_methods = :methods_class
+		argv.each do |arg|
+			l = flags[arg]
+			if l
+				l.call
+			end
 		end
 
 		class_name_index = argv.index{ |o| !o.start_with?("-") }
