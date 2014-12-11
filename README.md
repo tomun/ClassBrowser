@@ -18,15 +18,15 @@ Usage: ClassBrowser \[class\] \[switches\]
 'class' is a Class or Module name
 
 'switches' may be:  
-  -h:   show help  
-  -da:  show the all descendants of this class  
-  -di:  show the immediate descendants of this class  
-  -dn:  do not show the descendants of this class  
-  -m:   show the Modules included by this Class or Module  
-  -ma:  show all methods of this Class or Module  
-  -mi:  show the instance methods of this Class  
-  -mc:  show the class methods of this Class  
-  -mn:  do not show any methods of this Class or Module  
+&nbsp;&nbsp;-h:   show help  
+&nbsp;&nbsp;-da:  show the all descendants of this class  
+&nbsp;&nbsp;-di:  show the immediate descendants of this class  
+&nbsp;&nbsp;-dn:  do not show the descendants of this class  
+&nbsp;&nbsp;-m:   show the Modules included by this Class or Module  
+&nbsp;&nbsp;-ma:  show all methods of this Class or Module  
+&nbsp;&nbsp;-mi:  show the instance methods of this Class  
+&nbsp;&nbsp;-mc:  show the class methods of this Class  
+&nbsp;&nbsp;-mn:  do not show any methods of this Class or Module  
 
 ## Command Line Example
 
