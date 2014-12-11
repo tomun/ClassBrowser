@@ -64,7 +64,7 @@ Where:
 class is a Class or Module name
 switches may be:
   -h:   show this message
-  -da:  show the all descendants of this class
+  -da:  show all descendants of this class
   -di:  show the immediate descendants of this class
   -dn:  do not show the descendants of this class
   -m:   show the Modules included by this Class or Module
@@ -125,8 +125,6 @@ ClassBrowser with no arguments enters interactive mode
 
 	def interactive
 
-		failsafe = 1
-
 		loop do
 			print "\n#{@class_root_node.name}> "
 			args = gets.split(/\s+/)
@@ -137,9 +135,6 @@ ClassBrowser with no arguments enters interactive mode
 
 			parse_arguments args
 			dump
-
-			failsafe += 1
-			break if failsafe > 100
 		end 
 	end
 end

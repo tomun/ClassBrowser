@@ -19,7 +19,7 @@ Usage: ClassBrowser \[class\] \[switches\]
 
 'switches' may be:  
 &nbsp;&nbsp;-h:   show help  
-&nbsp;&nbsp;-da:  show the all descendants of this class  
+&nbsp;&nbsp;-da:  show all descendants of this class  
 &nbsp;&nbsp;-di:  show the immediate descendants of this class  
 &nbsp;&nbsp;-dn:  do not show the descendants of this class  
 &nbsp;&nbsp;-m:   show the Modules included by this Class or Module  
@@ -38,7 +38,7 @@ Usage: ClassBrowser \[class\] \[switches\]
 
 ## Interactive Mode
 
-In interactive mode, the prompt shows the current Class or Module.  Entering a Class or Module name and pressing enter will change the prompt to the new current Class or Module.   If you enter an invalid name, you will change to *Unknown class*>.   When switching to a class in interactive mode, information about this class will be displayed depending on the current switches.   Entering just switches and no class name will just redisplay information about the current class using the new switches
+In interactive mode, the prompt shows the current Class or Module.  Entering a Class or Module name and pressing enter will change the prompt to the new current Class or Module.   If you enter an invalid name, you will change to \*Unknown class\*\>.   When switching to a class in interactive mode, information about this class will be displayed depending on the current switches.   Entering just switches and no class name willredisplay information about the current class using the new switches.
 
 ## Interactive Example
 
