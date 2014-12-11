@@ -9,7 +9,7 @@ class ClassNode
 		if @klass
 			@klass.name
 		else
-			"Unknown class"
+			"*Unknown class*"
 		end
 	end
 
@@ -39,7 +39,6 @@ class ClassNode
 				c.name 
 			end
 		
-
 			klasses.each do |c|
 				class_node = ClassNode.new c
 				class_nodes << class_node

@@ -151,6 +151,31 @@ describe ClassBrowser do
 		expect(@browser.depth).to eq(:depth_all)
 	end
 
+	it "can parse the '-dn' argument" do
+		@browser.parse_arguments ["-dn"]
+		expect(@browser.depth).to eq(:depth_none)
+	end
+
+	it "can parse the '-mn' argument" do
+		@browser.parse_arguments ["-mn"]
+		expect(@browser.show_methods).to eq(:methods_none)
+	end
+
+	it "can parse the '-ma' argument" do
+		@browser.parse_arguments ["-ma"]
+		expect(@browser.show_methods).to eq(:methods_all)
+	end
+
+	it "can parse the '-mi' argument" do
+		@browser.parse_arguments ["-mi"]
+		expect(@browser.show_methods).to eq(:methods_instance)
+	end
+
+	it "can parse the '-mc' argument" do
+		@browser.parse_arguments ["-mc"]
+		expect(@browser.show_methods).to eq(:methods_class)
+	end
+
 	it "can parse a class name argument" do
 		@browser.parse_arguments ["-foo", "Array", "-bar"]
 		expect(@browser.class_root_node.klass.name).to eq("Array")
