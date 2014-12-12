@@ -76,9 +76,9 @@ describe HierarchyWriter do
 "○ BasicObject
 └─○ Object
   └─○ Parent
-    ├─○ Sister
-    │ └─○ Grandchild
-    └─○ Brother
+    ├─○ Brother
+    └─○ Sister
+      └─○ Grandchild
 "
 				).to_stdout
 		end
