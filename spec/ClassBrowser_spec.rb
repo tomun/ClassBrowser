@@ -93,8 +93,8 @@ describe HierarchyWriter do
 "○ BasicObject
 └─○ Object
   └─○ Parent
-    ├─○ Sister
-    └─○ Brother
+    ├─○ Brother
+    └─○ Sister
 "
 				).to_stdout
 		end
@@ -107,8 +107,8 @@ describe HierarchyWriter do
 "○ BasicObject
 └─○ Object
   └─○ Parent
-    ├─○ Sister
-    └─○ Brother
+    ├─○ Brother
+    └─○ Sister
 "
     		).to_stdout
 
