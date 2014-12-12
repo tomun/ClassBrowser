@@ -63,13 +63,12 @@ In interactive mode, the prompt shows the current Class or Module.  Entering a C
 
 [Gem Version]: https://rubygems.org/gems/ClassBrowser
 [Build Status]: https://travis-ci.org/tomun/ClassBrowser
-[travis pull requests]: https://travis-ci.org/tomun/ClassBrowser/pull_requests
 [Dependency Status]: https://gemnasium.com/tomun/ClassBrowser
-[Code Climate]: https://codeclimate.com/repos/5486124de30ba079230050ca/feed
-[Coverage Status]: https://codeclimate.com/repos/5486124de30ba079230050ca/feed
+[Code Climate]: https://codeclimate.com/github/tomun/ClassBrowser
+[Coverage Status]: https://codeclimate.com/github/tomun/ClassBrowser
 
 [GV img]: https://badge.fury.io/rb/ClassBrowser.png
 [BS img]: https://travis-ci.org/tomun/ClassBrowser.png
 [DS img]: https://gemnasium.com/tomun/ClassBrowser.png
-[CC img]: https://codeclimate.com/repos/5486124de30ba079230050ca/badges/b374b21eb9741352f3b9/gpa.svg
-[CS img]: https://codeclimate.com/repos/5486124de30ba079230050ca/badges/b374b21eb9741352f3b9/coverage.svg
+[CC img]: https://codeclimate.com/github/tomun/ClassBrowser/badges/gpa.svg
+[CS img]: https://codeclimate.com/github/tomun/ClassBrowser/badges/coverage.svg
