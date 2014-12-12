@@ -50,8 +50,7 @@ describe HierarchyWriter do
 └─○ Flower
   ├─○ Rose
   └─○ Carnation
-"
-			).to_stdout
+").to_stdout
 		end
 	end
 
@@ -61,8 +60,7 @@ describe HierarchyWriter do
 			expect { HierarchyWriter::dump_ancestors_of(ClassNode.new(Exception)) }.to output(
 "○ BasicObject
 └─○ Object
-"		
-			).to_stdout
+").to_stdout
 		end
 
 	end
@@ -79,8 +77,7 @@ describe HierarchyWriter do
     ├─○ Brother
     └─○ Sister
       └─○ Grandchild
-"
-				).to_stdout
+").to_stdout
 		end
 	end
 
@@ -95,8 +92,7 @@ describe HierarchyWriter do
   └─○ Parent
     ├─○ Brother
     └─○ Sister
-"
-				).to_stdout
+").to_stdout
 		end
 	end
 
@@ -109,8 +105,7 @@ describe HierarchyWriter do
   └─○ Parent
     ├─○ Brother
     └─○ Sister
-"
-    		).to_stdout
+").to_stdout
 
     end
 end
@@ -221,16 +216,15 @@ describe "The ClassBrowser can be invoked from the command line" do
 "○ BasicObject
 └─○ Object
   └─○ String
-"
-      		).to_stdout
+").to_stdout
     end
 
-    it "main runs in interactive mode with user input 'Array' then blank dumps the Array hierarchy then quits" do
+    it "main runs in interactive mode with user input 'Array' then dumps the Array hierarchy then quits" do
 		expect(@browser).to receive(:gets).twice.and_return("Array", "\n")
 		expect { @browser.interactive }.to output(
- /○ BasicObject
+/○ BasicObject
 └─○ Object
   └─○ Array
-/   		).to_stdout
+/).to_stdout
     end
 end
