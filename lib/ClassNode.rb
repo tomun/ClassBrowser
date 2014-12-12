@@ -35,11 +35,7 @@ class ClassNode
 
 			klasses.reject! { |c| c.name == nil }
 
-			klasses.sort_by do |c|
-				c.name 
-			end
-		
-			klasses.each do |c|
+			klasses.sort_by { |c| c.name }.each do |c|
 				class_node = ClassNode.new c
 				class_nodes << class_node
 			end
