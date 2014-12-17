@@ -1,5 +1,5 @@
-require_relative "ClassNode"
-require_relative 'HierarchyWriter'
+require_relative "class_node"
+require_relative 'hierarchy_writer'
 
 class ClassBrowser
 	attr_reader :class_root_node
