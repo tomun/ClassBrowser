@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 
-require_relative "../lib/ClassBrowser.rb"
+require_relative "../lib/class_browser.rb"
 
 main
