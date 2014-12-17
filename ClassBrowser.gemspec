@@ -8,6 +8,6 @@ Gem::Specification.new do |s|
 	s.email       = 'tunderhill@gmail.com'
 	s.homepage    = 'https://github.com/tomun/ClassBrowser'
 	s.licenses    = ['MIT']
-	s.files       = ["lib/ClassBrowser.rb", "lib/ClassNode.rb", "lib/HierarchyWriter.rb"]
+	s.files       = ["lib/class_browser.rb", "lib/class_node.rb", "lib/hierarchy_writer.rb"]
 	s.executables = ["ClassBrowser"]
 end
