@@ -10,3 +10,4 @@ gem "rake"     , "~> 0.9.2.2"
 gem "rspec", group: :test, require: "~> 3.1.0"
 gem "codeclimate-test-reporter", group: :test, require: nil
 
+gem "scrutinizer-ocular", group: :test, require: nil
